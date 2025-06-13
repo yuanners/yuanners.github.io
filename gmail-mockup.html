@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f6f8fc;
+        }
+
+        /* Login Screen Styles */
+        .login-container {
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 48px 40px 36px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .gmail-logo {
+            margin-bottom: 24px;
+        }
+
+        .gmail-logo img {
+            width: 75px;
+            height: auto;
+        }
+
+        .login-container h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #202124;
+        }
+
+        .login-container p {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 32px;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            box-sizing: border-box;
+        }
+
+        .login-input:focus {
+            border-color: #1a73e8;
+            outline: none;
+        }
+
+        .login-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 9px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .login-btn:hover {
+            background-color: #1557b0;
+        }
+
+        /* Gmail Interface Styles */
+        .gmail-interface {
+            display: none;
+            height: 100vh;
+        }
+
+        .gmail-header {
+            background: #fff;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .gmail-logo-small {
+            display: flex;
+            align-items: center;
+        }
+
+        .gmail-logo-small img {
+            height: 40px;
+            margin-right: 8px;
+        }
+
+        .gmail-search {
+            flex: 1;
+            max-width: 720px;
+            margin: 0 32px;
+        }
+
+        .search-bar {
+            background: #f1f3f4;
+            border-radius: 8px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar i {
+            color: #5f6368;
+            margin-right: 8px;
+        }
+
+        .search-input {
+            border: none;
+            background: none;
+            flex: 1;
+            font-size: 16px;
+            color: #202124;
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1a73e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            margin-left: 16px;
+        }
+
+        .gmail-sidebar {
+            width: 256px;
+            background: #fff;
+            height: calc(100vh - 64px);
+            padding: 8px;
+        }
+
+        .compose-btn {
+            background: #c2e7ff;
+            color: #001d35;
+            border: none;
+            border-radius: 16px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            margin: 8px 0 16px;
+            cursor: pointer;
+        }
+
+        .compose-btn i {
+            margin-right: 8px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            height: 32px;
+            border-radius: 0 16px 16px 0;
+            margin: 4px 0;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background: #f1f3f4;
+        }
+
+        .sidebar-item.active {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .sidebar-item i {
+            margin-right: 16px;
+            font-size: 18px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 16px;
+        }
+
+        .email-list {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .email-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-bottom: 1px solid #f1f3f4;
+            cursor: pointer;
+        }
+
+        .email-item:hover {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .email-checkbox {
+            margin-right: 16px;
+        }
+
+        .email-star {
+            margin-right: 16px;
+            color: #5f6368;
+        }
+
+        .email-sender {
+            width: 200px;
+            font-weight: 500;
+            margin-right: 16px;
+        }
+
+        .email-content {
+            flex: 1;
+        }
+
+        .email-subject {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .email-preview {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .email-time {
+            width: 100px;
+            text-align: right;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-container">
+            <div class="gmail-logo">
+                <img src="https://www.google.com/gmail/about/static/images/logo-gmail.png" alt="Gmail Logo">
+            </div>
+            <h1>Sign in</h1>
+            <p>Use your Google Account</p>
+            <div class="login-form">
+                <input type="email" class="login-input" placeholder="Email or phone">
+                <button class="login-btn" id="next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Screen -->
+    <div id="password-screen" class="hidden">
+        <div class="login-container">
+            <div class="gmail-logo">
+                <img src="https://www.google.com/gmail/about/static/images/logo-gmail.png" alt="Gmail Logo">
+            </div>
+            <h1>Welcome</h1>
+            <p class="user-email-display">example@gmail.com</p>
+            <div class="login-form">
+                <input type="password" class="login-input" placeholder="Enter your password">
+                <button class="login-btn" id="signin-btn">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gmail Interface -->
+    <div id="gmail-interface" class="gmail-interface">
+        <div class="gmail-header">
+            <div class="gmail-logo-small">
+                <img src="https://www.google.com/gmail/about/static/images/logo-gmail.png" alt="Gmail Logo">
+            </div>
+            <div class="gmail-search">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="search-input" placeholder="Search mail">
+                </div>
+            </div>
+            <div class="user-profile">
+                <i class="fas fa-cog"></i>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="gmail-sidebar">
+                <button class="compose-btn">
+                    <i class="fas fa-plus"></i>
+                    Compose
+                </button>
+                <div class="sidebar-item active">
+                    <i class="fas fa-inbox"></i>
+                    Inbox
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-paper-plane"></i>
+                    Sent
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-star"></i>
+                    Starred
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-clock"></i>
+                    Snoozed
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-file-alt"></i>
+                    Drafts
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="email-list">
+                    <div class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <i class="fas fa-star email-star"></i>
+                        <div class="email-sender">John Doe</div>
+                        <div class="email-content">
+                            <div class="email-subject">Meeting Tomorrow</div>
+                            <div class="email-preview">Hi, just confirming our meeting tomorrow at 2 PM...</div>
+                        </div>
+                        <div class="email-time">10:30 AM</div>
+                    </div>
+                    <div class="email-item">
+                        <input type="checkbox" class="email-checkbox">
+                        <i class="fas fa-star email-star"></i>
+                        <div class="email-sender">Jane Smith</div>
+                        <div class="email-content">
+                            <div class="email-subject">Project Update</div>
+                            <div class="email-preview">Here's the latest update on the project...</div>
+                        </div>
+                        <div class="email-time">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginScreen = document.getElementById('login-screen');
+            const passwordScreen = document.getElementById('password-screen');
+            const gmailInterface = document.getElementById('gmail-interface');
+            const nextBtn = document.getElementById('next-btn');
+            const signinBtn = document.getElementById('signin-btn');
+            const emailInput = document.querySelector('.login-input');
+            const userEmailDisplay = document.querySelector('.user-email-display');
+
+            nextBtn.addEventListener('click', function() {
+                if (emailInput.value) {
+                    userEmailDisplay.textContent = emailInput.value;
+                    loginScreen.classList.add('hidden');
+                    passwordScreen.classList.remove('hidden');
+                }
+            });
+
+            signinBtn.addEventListener('click', function() {
+                passwordScreen.classList.add('hidden');
+                gmailInterface.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html> 

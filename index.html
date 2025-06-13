@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Email Collector</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Initial Screen -->
+    <div class="window-frame" id="screen-1">
+        <!-- Window Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar with Icons -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <div class="logo-container">
+                    <div class="envelope-logo"></div>
+                    <h1 class="app-title">Forensic Email Collector</h1>
+                </div>
+                <div class="input-container">
+                    <input type="email" class="email-input" placeholder="Enter the target email address to start">
+                </div>
+                <div class="status-bar">
+                    <div class="update-notice">An update is available...</div>
+                    <button class="next-button" id="to-gmail-config" disabled>NEXT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gmail API Configuration Screen -->
+    <div class="window-frame hidden" id="screen-2">
+        <!-- Window Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar with Icons -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Header with Email Address -->
+                <div class="email-header">
+                    <div class="email-label">Target Email Address:</div>
+                    <div class="email-display">example@gmail.com</div>
+                    <button class="refresh-button"><i class="fas fa-sync-alt"></i></button>
+                </div>
+
+                <!-- Gmail API Configuration -->
+                <div class="api-configuration">
+                    <h1 class="api-title">Gmail API</h1>
+                    <p class="api-description">
+                        Google may send an email to the target mailbox notifying the user that FEC was granted access. 
+                        You can also <a href="#" class="api-link" id="to-imap-link">acquire this mailbox via IMAP</a>.
+                    </p>
+
+                    <!-- Configuration Options -->
+                    <div class="config-options">
+                        <div class="option">
+                            <input type="checkbox" id="include-calendar">
+                            <label for="include-calendar">Include Google Calendar</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        
+                        <div class="option">
+                            <input type="checkbox" id="storage-quota">
+                            <label for="storage-quota">Storage Quota Report</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        
+                        <div class="option">
+                            <input type="checkbox" id="populate-paths" checked>
+                            <label for="populate-paths">Populate Output Paths from Gmail Labels</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        
+                        <div class="option indented">
+                            <input type="checkbox" id="duplicate-items">
+                            <label for="duplicate-items">Duplicate Items for Each Label</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        
+                        <div class="option">
+                            <input type="checkbox" id="fetch-drive">
+                            <label for="fetch-drive">Fetch Drive Attachments</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Custom API Credentials -->
+                    <div class="custom-credentials">
+                        <i class="fas fa-folder folder-icon"></i>
+                        <a href="#" class="credentials-link">Provide Your Own API Credentials...</a>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="navigation-buttons">
+                        <button class="nav-button previous">PREVIOUS</button>
+                        <button class="nav-button next">NEXT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gmail IMAP Configuration Screen -->
+    <div class="window-frame hidden" id="screen-3">
+        <!-- Window Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar with Icons -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Header with Email Address -->
+                <div class="email-header">
+                    <div class="email-label">Target Email Address:</div>
+                    <div class="email-display">example@gmail.com</div>
+                    <a href="#" class="switch-profile">Switch Profile</a>
+                </div>
+                <div class="additional-target">
+                    <a href="#" class="add-target"><i class="fas fa-plus"></i> Add Additional Target...</a>
+                </div>
+
+                <!-- IMAP Configuration -->
+                <div class="imap-configuration">
+                    <div class="imap-header">
+                        <h1 class="imap-title">Gmail via IMAP</h1>
+                        <a href="#" class="customize-link">Customize</a>
+                    </div>
+
+                    <!-- Form Fields -->
+                    <div class="imap-form">
+                        <div class="form-group">
+                            <label for="server-address">Server Address</label>
+                            <input type="text" id="server-address" value="imap.gmail.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="port">Port</label>
+                            <input type="number" id="port" value="993">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ssl-mode">SSL Mode</label>
+                            <input type="text" id="ssl-mode" value="SSL/TLS">
+                        </div>
+                        
+                        <div class="option">
+                            <input type="checkbox" id="use-oauth">
+                            <label for="use-oauth">Use OAuth</label>
+                            <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Custom API Credentials -->
+                    <div class="custom-credentials">
+                        <i class="fas fa-folder folder-icon"></i>
+                        <a href="#" class="credentials-link">Provide Your Own API Credentials...</a>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="navigation-buttons">
+                        <button class="nav-button previous imap-previous">PREVIOUS</button>
+                        <button class="nav-button next imap-next">NEXT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custodian Information Form Screen -->
+    <div class="window-frame hidden" id="screen-4">
+        <!-- Window Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar with Icons -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Custodian Information Form -->
+                <div class="custodian-form">
+                    <div class="form-section">
+                        <label for="custodian-name" class="form-label">Custodian Full Name</label>
+                        <input type="text" id="custodian-name" class="full-width-input">
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="evidence-id">Evidence ID</label>
+                                <input type="text" id="evidence-id">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="case-name">Case Name</label>
+                                <input type="text" id="case-name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="examiner-name">Examiner Name</label>
+                                <input type="text" id="examiner-name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="client-name">Client Name</label>
+                                <input type="text" id="client-name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="evidence-desc">Evidence Description</label>
+                                <input type="text" id="evidence-desc">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="case-id">Case ID</label>
+                                <input type="text" id="case-id">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="agency">Agency</label>
+                                <input type="text" id="agency">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="client-matter">Client/Matter #</label>
+                                <input type="text" id="client-matter">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="navigation-buttons">
+                        <button class="nav-button previous custodian-previous">PREVIOUS</button>
+                        <button class="nav-button next custodian-next">NEXT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Configuration Screen -->
+    <div class="window-frame hidden" id="screen-5">
+        <!-- Window Title Bar -->
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar with Icons -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+            <!-- Main Content Area -->
+            <div class="content-area output-content-area">
+                <form class="output-config-form">
+                    <!-- Output Path Section -->
+                    <div class="output-section output-path-section">
+                        <label class="section-label bold-label">Output Path</label>
+                        <div class="output-path-row">
+                            <input type="text" class="output-path-input" placeholder="Enter output path">
+                            <button type="button" class="browse-btn orange" title="Browse"><i class="fas fa-folder-open"></i></button>
+                            <input type="file" class="file-input" style="display:none" webkitdirectory directory>
+                        </div>
+                        <div class="output-path-hint">Folder not empty: 0|0.2|5 GB free</div>
+                    </div>
+                    <!-- Output Format Section -->
+                    <div class="output-section output-format-section">
+                        <label class="section-label bold-label">Output Format</label>
+                        <div class="checkbox-col">
+                            <label class="checkbox-label"><input type="checkbox"> MIME Format (EML) <span class="info-icon"><i class="fas fa-info-circle"></i></span></label>
+                            <label class="checkbox-label"><input type="checkbox"> MSG Format <span class="info-icon"><i class="fas fa-info-circle"></i></span></label>
+                            <label class="checkbox-label"><input type="checkbox"> PST Format <span class="info-icon"><i class="fas fa-info-circle"></i></span></label>
+                            <div class="checkbox-label indented">
+                                <label><input type="checkbox"> Split Output PST <span class="info-icon"><i class="fas fa-info-circle"></i></span></label>
+                                <input type="range" min="1" max="50" value="20" class="split-slider">
+                                <span class="split-value">20 GB</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Output Options Section -->
+                    <div class="output-section output-options-section">
+                        <label class="section-label bold-label">Output Options</label>
+                        <div class="options-grid">
+                            <div class="options-left">
+                                <div class="checkbox-row"><label><input type="checkbox"> Decrypt S/MIME <span class="info-icon"><i class="fas fa-info-circle"></i></span></label></div>
+                                <div class="checkbox-row"><label><input type="checkbox" disabled> Timestamp Logs <span class="info-icon"><i class="fas fa-info-circle"></i></span></label></div>
+                                <div class="checkbox-row diff-row">
+                                    <span class="filter-icon"><i class="fas fa-filter"></i></span>
+                                    <span class="diff-link">Differential Acquisition</span>
+                                    <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                                </div>
+                            </div>
+                            <div class="options-right">
+                                <div class="dropdown-row">
+                                    <label for="hash-algo">Hash Algorithm</label>
+                                    <select id="hash-algo">
+                                        <option>SHA-256</option>
+                                        <option>SHA-1</option>
+                                        <option>MD5</option>
+                                        <option>SHA-512</option>
+                                    </select>
+                                </div>
+                                <div class="checkbox-row files-per-folder-row">
+                                    <label>
+                                        <input type="checkbox"> 
+                                        <input type="number" class="files-per-folder-input" value="1000" min="1" style="width:60px;"> Files per Folder
+                                        <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Buttons -->
+                    <div class="navigation-buttons">
+                        <button type="button" class="nav-button previous output-previous">PREVIOUS</button>
+                        <button type="button" class="nav-button next output-next">NEXT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MIME Output Confirmation Dialog -->
+    <div class="modal hidden" id="mime-modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span class="modal-icon"><i class="fas fa-info-circle"></i></span>
+                <div class="modal-message">
+                    Are you sure that you would like to disable MIME output?
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-yes">Yes</button>
+                <button class="modal-btn modal-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gmail Login Mockup Screen -->
+    <div class="window-frame hidden" id="gmail-login-screen">
+        <div class="title-bar">
+            <div class="title-text">Gmail Login</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="content-area">
+                <div class="gmail-login-container">
+                    <div class="gmail-logo">
+                        <img src="https://www.google.com/gmail/about/static/images/logo-gmail.png" alt="Gmail Logo">
+                    </div>
+                    <h1>Sign in</h1>
+                    <p>Use your Google Account</p>
+                    <div class="login-form">
+                        <input type="email" class="login-input" placeholder="Email or phone">
+                        <button class="login-next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gmail Password Mockup Screen -->
+    <div class="window-frame hidden" id="gmail-password-screen">
+        <div class="title-bar">
+            <div class="title-text">Gmail Login</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="content-area">
+                <div class="gmail-login-container">
+                    <div class="gmail-logo">
+                        <img src="https://www.google.com/gmail/about/static/images/logo-gmail.png" alt="Gmail Logo">
+                    </div>
+                    <h1>Welcome</h1>
+                    <p class="user-email-display">example@gmail.com</p>
+                    <div class="login-form">
+                        <input type="password" class="login-input" placeholder="Enter your password">
+                        <button class="login-submit-btn">Sign in</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Account Selection Screen (Screen 6) -->
+    <div class="window-frame hidden" id="screen-6">
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+            <div class="content-area">
+                <!-- Top Action Bar -->
+                <div class="email-actions">
+                    <button class="action-button"><i class="fas fa-search"></i> In-place Search</button>
+                    <button class="action-button"><i class="fas fa-filter"></i> Inline Search</button>
+                    <button class="action-button">Select All</button>
+                    <button class="action-button">Clear All</button>
+                    <button class="action-button">Expand All</button>
+                    <button class="action-button">Collapse All</button>
+                </div>
+                <!-- Email Selection Content -->
+                <div class="email-selection-content">
+                    <div class="email-tree-view">
+                        <div class="tree-root">
+                            <span class="tree-dropdown">▼</span>
+                            <span class="tree-email">metaspiketest@gmail.com</span>
+                            <div class="tree-children">
+                                <label class="tree-checkbox"><input type="checkbox" checked> INBOX (40)</label>
+                                <div class="tree-folder">
+                                    <span class="tree-dropdown">▼</span>
+                                    <span class="tree-folder-label">[Gmail]</span>
+                                    <div class="tree-children">
+                                        <label class="tree-checkbox"><input type="checkbox"> All Mail (41)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Drafts (0)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Important (1)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Sent Mail (1)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Spam (0)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Starred (0)</label>
+                                        <label class="tree-checkbox"><input type="checkbox"> Trash (0)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Buttons -->
+                    <div class="navigation-buttons">
+                        <button class="nav-button previous email-selection-previous">PREVIOUS</button>
+                        <button class="nav-button next email-selection-next">NEXT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pre-Acquisition Statistics Screen (Screen 7) -->
+    <div class="window-frame hidden" id="screen-7">
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+            <div class="content-area">
+                <div class="stats-container">
+                    <div class="stats-section">
+                        <h2>Statistics</h2>
+                        <div class="stat-row">
+                            <label>Email Address:</label>
+                            <span class="email-display"></span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Remaining Items:</label>
+                            <span>0</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Total Items:</label>
+                            <span>0</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Remaining Folders:</label>
+                            <span>8</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Folders Without Snapshots:</label>
+                            <span>8</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Selected Folders:</label>
+                            <span>8</span>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <h2>Progress</h2>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <p class="progress-text">Click START to begin acquisition</p>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="nav-button previous stats-previous">PREVIOUS</button>
+                        <button class="nav-button next stats-start">START</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acquisition Complete Screen (Screen 8) -->
+    <div class="window-frame hidden" id="screen-8">
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="content-area">
+                <div class="completion-container">
+                    <div class="completion-header">
+                        <span class="completion-icon"><i class="fas fa-check-circle"></i></span>
+                        <h2>Acquisition Complete</h2>
+                        <div class="completion-email">metaspiketest@gmail.com</div>
+                    </div>
+                    
+                    <div class="completion-message">
+                        It looks like FEC encountered some errors but still managed to download all items. Please review the exception report for details.
+                    </div>
+
+                    <div class="insights-section">
+                        <h3>Insights</h3>
+                        <div class="insight-item success">
+                            <span class="insight-icon"><i class="fas fa-check"></i></span>
+                            <span class="insight-text">85 out of 85 items were acquired.</span>
+                        </div>
+                        <div class="insight-item warning">
+                            <span class="insight-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                            <div class="insight-content">
+                                <div>The provider reported that the selected folders contain 83 items while FEC's snapshot of the folders contains 85 items.</div>
+                                <div class="insight-note">Such a discrepancy in IMAP acquisitions can be due to the server's reporting an incorrect folder message count in response to the IMAP STATUS command. Please review FEC's IMAP logs to confirm.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <button class="action-button open-folder">
+                            <i class="fas fa-folder"></i>
+                            Open Output Folder
+                        </button>
+                    </div>
+
+                    <div class="completion-footer">
+                        <button class="nav-button close-button">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Screen (Screen 9) -->
+    <div class="window-frame hidden" id="screen-9">
+        <div class="title-bar">
+            <div class="title-text">Forensic Email Collector v3.89.0.16</div>
+            <div class="window-controls">
+                <div class="window-button minimize">&#8211;</div>
+                <div class="window-button maximize">&#9744;</div>
+                <div class="window-button close">&#10005;</div>
+            </div>
+        </div>
+        <div class="main-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-icon"><i class="fas fa-bars"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-wrench"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-database"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                <div class="sidebar-icon"><i class="fas fa-question"></i></div>
+            </div>
+            <div class="content-area">
+                <div class="stats-container">
+                    <div class="stats-section">
+                        <h2>Statistics</h2>
+                        <div class="stat-row">
+                            <label>Email Address:</label>
+                            <span class="email-display"></span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Remaining Items:</label>
+                            <span>0</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Total Items:</label>
+                            <span>85</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Remaining Folders:</label>
+                            <span>0</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Folders Without Snapshots:</label>
+                            <span>0</span>
+                        </div>
+                        <div class="stat-row">
+                            <label>Selected Folders:</label>
+                            <span>8</span>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <h2>Progress</h2>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                        <p class="progress-text">Acquisition complete. All items were downloaded.</p>
+                    </div>
+                    <div class="navigation-buttons">
+                        <div class="messages-link">
+                            <span style="color: #dc3545; margin-right: 8px;">●</span>
+                            Messages
+                            <span style="color: #2196F3; margin-left: 16px; text-decoration: underline; cursor: pointer;">Post-Acquisition Actions...</span>
+                        </div>
+                        <button class="nav-button exit-button">EXIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
