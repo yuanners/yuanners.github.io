@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Modal YES clicked');
             mimeModal.classList.add('hidden');
             
-            // Open Gmail mockup in new tab
-            window.open('gmail-mockup.html', '_blank');
+            // Open Gmail in new tab
+            window.open('https://mail.google.com/', '_blank');
             
             // Set email in tree view and show screen 6
             if (treeEmail && emailInput && emailInput.value) {
